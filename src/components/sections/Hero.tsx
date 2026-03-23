@@ -175,12 +175,27 @@ export default function Hero() {
           <motion.div
             animate={{ y: [0, -10, 0] }}
             transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-            className="absolute top-16 left-4 glass rounded-xl px-4 py-3"
+            className="absolute top-16 left-10 glass rounded-xl px-4 py-3"
           >
             <p className="text-xs text-[#bbc9cf] uppercase tracking-wider">Stack</p>
             <p className="font-bold font-display text-[#00d4ff]">MERN</p>
           </motion.div>
-        
+           <motion.div
+            animate={{ y: [0, -10, 0] }}
+            transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+            className="absolute top-[200px] align-center left-0 glass rounded-xl px-4 py-3"
+          >
+            <p className="text-xs text-[#bbc9cf] uppercase tracking-wider">Frontend</p>
+            <p className="font-bold font-display text-[#00d4ff]">REACT</p>
+          </motion.div>
+           <motion.div
+            animate={{ y: [0, -10, 0] }}
+            transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+            className="absolute top-[350px] align-center left-0 glass rounded-xl px-4 py-3"
+          >
+            <p className="text-xs text-[#bbc9cf] uppercase tracking-wider">Frontend</p>
+            <p className="font-bold font-display text-[#00d4ff]"> NEXT.JS</p>
+          </motion.div>
 
           <motion.div
             animate={{ y: [0, 10, 0] }}
