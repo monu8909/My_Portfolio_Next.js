@@ -15,12 +15,12 @@ const spaceGrotesk = Space_Grotesk({
 });
 
 export const metadata: Metadata = {
-  title: "Alex Chen | Full Stack MERN Developer",
+  title: "Monu Rajput | Full Stack MERN Developer",
   description:
-    "Portfolio of Alex Chen — Full Stack MERN Developer specializing in MongoDB, Express.js, React, and Node.js. Building modern, scalable web applications.",
+    "Portfolio of Monu Rajput — Full Stack MERN Developer specializing in MongoDB, Express.js, React, and Node.js. Building modern, scalable web applications.",
   keywords: ["MERN Stack", "Full Stack Developer", "React", "Node.js", "MongoDB", "Portfolio"],
   openGraph: {
-    title: "Alex Chen | Full Stack MERN Developer",
+    title: "Monu Rajput | Full Stack MERN Developer",
     description: "Building Modern Web Experiences with the MERN Stack",
     type: "website",
   },
