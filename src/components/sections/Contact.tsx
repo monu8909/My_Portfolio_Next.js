@@ -3,10 +3,7 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
-import { 
-  SiGithub, 
- 
-} from "react-icons/si";
+import { SiGithub } from "react-icons/si";
 import { CiLinkedin } from "react-icons/ci";
 export default function Contact() {
   const { ref, inView } = useInView({ threshold: 0.2, triggerOnce: true });
@@ -33,7 +30,7 @@ export default function Contact() {
           Accept: "application/json",
         },
         body: JSON.stringify({
-          access_key: "YOUR_ACCESS_KEY_HERE", // Replace with your Web3Forms access key
+          access_key: "7c89aafa-4a7d-42d7-b0db-d7a567acc9f6", // Replace with your Web3Forms access key
           name: formData.name,
           email: formData.email,
           message: formData.message,
@@ -101,10 +98,8 @@ export default function Contact() {
                   transition={{ delay: 0.3 + i * 0.1, duration: 0.5 }}
                 >
                   <span className="text-xl">    
-                    <a href={social.url}   >
-                     <social.icon />
-                    </a>  
-</span>
+                    <social.icon />
+                  </span>
                 </motion.a>
               ))}
             </div>

@@ -1,36 +1,45 @@
 "use client";
 
-import { useCallback } from "react";
-import Particles from "@tsparticles/react";
+import { useEffect, useState } from "react";
+import Particles, { initParticlesEngine } from "@tsparticles/react";
 import { loadSlim } from "@tsparticles/slim";
 import type { Engine } from "@tsparticles/engine";
 
 export default function ParticleBackground() {
-  const particlesInit = useCallback(async (engine: Engine) => {
-    await loadSlim(engine);
+  const [init, setInit] = useState(false);
+
+  // this should be run only once per application lifetime
+  useEffect(() => {
+    initParticlesEngine(async (engine: Engine) => {
+      // you can initiate the tsParticles instance (engine) here, adding custom shapes or presets
+      // this loads the tsparticles package bundle, it's the easiest method for getting everything ready
+      // starting from v2 you can add only the features you need reducing the bundle size
+      await loadSlim(engine);
+    }).then(() => {
+      setInit(true);
+    });
   }, []);
+
+  if (!init) return null;
 
   return (
     <Particles
       id="tsparticles"
-      init={particlesInit}
       className="absolute inset-0 pointer-events-none"
       options={{
         fullScreen: { enable: false },
         background: { color: { value: "transparent" } },
         fpsLimit: 60,
         particles: {
-          number: { value: 80, density: { enable: true, area: 900 } },
+          number: { value: 80, density: { enable: true, width: 1920, height: 1080 } },
           color: { value: ["#00d4ff", "#7c3aed", "#a8e8ff"] },
           shape: { type: "circle" },
           opacity: {
-            value: 0.12,
-            random: true,
-            animation: { enable: true, speed: 0.5, minimumValue: 0.05, sync: false },
+            value: { min: 0.05, max: 0.12 },
+            animation: { enable: true, speed: 0.5, sync: false },
           },
           size: {
             value: { min: 1, max: 3 },
-            random: true,
           },
           move: {
             enable: true,
