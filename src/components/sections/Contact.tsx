@@ -11,11 +11,48 @@ import { CiLinkedin } from "react-icons/ci";
 export default function Contact() {
   const { ref, inView } = useInView({ threshold: 0.2, triggerOnce: true });
   const [status, setStatus] = useState<"idle" | "submitting" | "success">("idle");
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    message: "",
+  });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setFormData({ ...formData, [e.target.id]: e.target.value });
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setStatus("submitting");
-    setTimeout(() => setStatus("success"), 1500);
+
+    try {
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          access_key: "YOUR_ACCESS_KEY_HERE", // Replace with your Web3Forms access key
+          name: formData.name,
+          email: formData.email,
+          message: formData.message,
+        }),
+      });
+
+      const result = await response.json();
+      if (result.success) {
+        setStatus("success");
+        setFormData({ name: "", email: "", message: "" });
+        setTimeout(() => setStatus("idle"), 5000);
+      } else {
+        setStatus("idle");
+        console.error("Submission failed:", result);
+      }
+    } catch (error) {
+      console.error("Form error:", error);
+      setStatus("idle");
+    }
   };
 
   return (
@@ -87,25 +124,51 @@ export default function Contact() {
 
               <div className="flex flex-col gap-8">
                 <div className="relative group">
-                  <input type="text" required id="name" className="neo-input peer" placeholder=" " />
-                  <label htmlFor="name" className="absolute left-0 top-3 text-[#bbc9cf] text-sm transition-all pointer-events-none peer-focus:-top-5 peer-focus:text-xs peer-focus:text-[#00d4ff] peer-[:not(:placeholder-shown)]:-top-5 peer-[:not(:placeholder-shown)]:text-xs">
-                    Your Name
-                  </label>
-                </div>
-
-                <div className="relative group">
-                  <input type="email" required id="email" className="neo-input peer" placeholder=" " />
-                  <label htmlFor="email" className="absolute left-0 top-3 text-[#bbc9cf] text-sm transition-all pointer-events-none peer-focus:-top-5 peer-focus:text-xs peer-focus:text-[#00d4ff] peer-[:not(:placeholder-shown)]:-top-5 peer-[:not(:placeholder-shown)]:text-xs">
-                    Email Address
-                  </label>
-                </div>
-
-                <div className="relative group h-32">
-                  <textarea required id="message" className="neo-input h-full resize-none peer" placeholder=" " />
-                  <label htmlFor="message" className="absolute left-0 top-3 text-[#bbc9cf] text-sm transition-all pointer-events-none peer-focus:-top-5 peer-focus:text-xs peer-focus:text-[#00d4ff] peer-[:not(:placeholder-shown)]:-top-5 peer-[:not(:placeholder-shown)]:text-xs">
-                    Message
-                  </label>
-                </div>
+                   <input 
+                     type="text" 
+                     required 
+                     id="name" 
+                     name="name"
+                     value={formData.name}
+                     onChange={handleChange}
+                     className="neo-input peer" 
+                     placeholder=" " 
+                   />
+                   <label htmlFor="name" className="absolute left-0 top-3 text-[#bbc9cf] text-sm transition-all pointer-events-none peer-focus:-top-5 peer-focus:text-xs peer-focus:text-[#00d4ff] peer-[:not(:placeholder-shown)]:-top-5 peer-[:not(:placeholder-shown)]:text-xs">
+                     Your Name
+                   </label>
+                 </div>
+ 
+                 <div className="relative group">
+                   <input 
+                     type="email" 
+                     required 
+                     id="email" 
+                     name="email"
+                     value={formData.email}
+                     onChange={handleChange}
+                     className="neo-input peer" 
+                     placeholder=" " 
+                   />
+                   <label htmlFor="email" className="absolute left-0 top-3 text-[#bbc9cf] text-sm transition-all pointer-events-none peer-focus:-top-5 peer-focus:text-xs peer-focus:text-[#00d4ff] peer-[:not(:placeholder-shown)]:-top-5 peer-[:not(:placeholder-shown)]:text-xs">
+                     Email Address
+                   </label>
+                 </div>
+ 
+                 <div className="relative group h-32">
+                   <textarea 
+                     required 
+                     id="message" 
+                     name="message"
+                     value={formData.message}
+                     onChange={handleChange}
+                     className="neo-input h-full resize-none peer" 
+                     placeholder=" " 
+                   />
+                   <label htmlFor="message" className="absolute left-0 top-3 text-[#bbc9cf] text-sm transition-all pointer-events-none peer-focus:-top-5 peer-focus:text-xs peer-focus:text-[#00d4ff] peer-[:not(:placeholder-shown)]:-top-5 peer-[:not(:placeholder-shown)]:text-xs">
+                     Message
+                   </label>
+                 </div>
               </div>
 
               <motion.button
