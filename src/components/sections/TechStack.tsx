@@ -58,7 +58,7 @@ export default function TechStack() {
   const { ref, inView } = useInView({ threshold: 0.1, triggerOnce: true });
 
   return (
-    <section id="stack" className="relative py-32 bg-[#0e1322]">
+    <section id="stack" className="relative py-32 bg-transparent">
       <div className="orb orb-cyan w-[500px] h-[500px] -top-20 left-1/4 opacity-8" />
 
       <div className="max-w-7xl mx-auto px-6">

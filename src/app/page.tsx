@@ -2,14 +2,25 @@
 
 import { useEffect, useState } from "react";
 import Lenis from "lenis";
+import dynamic from "next/dynamic";
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/sections/Hero";
 import About from "@/components/sections/About";
 import TechStack from "@/components/sections/TechStack";
 import Projects from "@/components/sections/Projects";
+import AnimationShowcase from "@/components/sections/AnimationShowcase";
 import Experience from "@/components/sections/Experience";
 import Contact from "@/components/sections/Contact";
 import Footer from "@/components/Footer";
+
+const ParallaxBackground = dynamic(
+  () => import("@/components/ParallaxBackground"),
+  { ssr: false }
+);
+
+const Scene3D = dynamic(() => import("@/components/3d/Scene3D"), {
+  ssr: false,
+});
 
 export default function Home() {
   const [mounted, setMounted] = useState(false);
@@ -43,15 +54,32 @@ export default function Home() {
   if (!mounted) return null;
 
   return (
-    <main className="bg-[#0e1322] min-h-screen text-[#dee1f7] font-sans selection:bg-[#00d4ff]/30 selection:text-[#00d4ff]">
-      <Navbar />
-      <Hero />
-      <About />
-      <TechStack />
-      <Projects />
-      <Experience />
-      <Contact />
-      <Footer />
+    <main className="bg-[#0e1322] min-h-screen text-[#dee1f7] font-sans selection:bg-[#00d4ff]/30 selection:text-[#00d4ff] relative ">
+       <div
+        className="absolute inset-[-10px] z-0 opacity-[0.03]"
+        style={{
+          backgroundImage: `linear-gradient(rgba(0,212,255,1) 1px, transparent 1px), linear-gradient(90deg, rgba(0,212,255,1) 1px, transparent 1px)`,
+          backgroundSize: "60px 60px",
+        }}
+      />
+      {/* Parallax 3D developer character background */}
+      <ParallaxBackground />
+
+      {/* Subtle particle / 3D canvas layer on top of character */}
+      {/* <div className="fixed inset-0 z-[1] pointer-events-none opacity-30 block md:block">
+        <Scene3D />
+      </div> */}
+      <div className="relative z-10 w-full">
+        <Navbar />
+        <Hero />
+        <About />
+        <TechStack />
+        <Projects />
+        {/* <AnimationShowcase /> */}
+        <Experience />
+        <Contact />
+        <Footer />
+      </div>
     </main>
   );
 }

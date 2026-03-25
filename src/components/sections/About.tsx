@@ -36,7 +36,7 @@ export default function About() {
   const { ref, inView } = useInView({ threshold: 0.1, triggerOnce: true });
 
   return (
-    <section id="about" className="relative py-32 bg-[#161b2b]">
+    <section id="about" className="relative py-32 bg-transparent">
       <div className="orb orb-purple w-[400px] h-[400px] top-0 right-0 opacity-10" />
 
       <div className="max-w-7xl mx-auto px-6">

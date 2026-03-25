@@ -64,7 +64,7 @@ export default function Experience() {
   const scaleY = useTransform(scrollYProgress, [0, 1], [0, 1]);
 
   return (
-    <section id="experience" className="relative py-32 bg-[#0e1322]">
+    <section id="experience" className="relative py-32 bg-transparent">
       <div className="orb orb-cyan w-[600px] h-[600px] top-40 right-1/4 opacity-10" />
 
       <div className="max-w-7xl mx-auto px-6">

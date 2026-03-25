@@ -53,7 +53,7 @@ export default function Contact() {
   };
 
   return (
-    <section id="contact" className="relative py-32 bg-[#1a1f2f] min-h-screen flex items-center">
+    <section id="contact" className="relative py-32 bg-transparent min-h-screen flex items-center">
       <div className="orb orb-cyan w-[500px] h-[500px] bottom-0 left-0 opacity-10" />
       <div className="orb orb-purple w-[300px] h-[300px] top-20 right-20 opacity-10" />
 

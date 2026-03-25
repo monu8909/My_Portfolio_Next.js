@@ -4,14 +4,7 @@ import dynamic from "next/dynamic";
 import { motion } from "framer-motion";
 import { TypeAnimation } from "react-type-animation";
 
-const Scene3D = dynamic(() => import("@/components/3d/Scene3D"), {
-  ssr: false,
-  loading: () => (
-    <div className="w-full h-full flex items-center justify-center">
-      <div className="w-16 h-16 border-2 border-[#00d4ff] border-t-transparent rounded-full animate-spin" />
-    </div>
-  ),
-});
+
 
 const ParticleBackground = dynamic(() => import("@/components/3d/ParticleBackground"), {
   ssr: false,
@@ -38,7 +31,7 @@ export default function Hero() {
   return (
     <section
       id="home"
-      className="relative min-h-screen flex items-center overflow-hidden bg-[#0e1322]"
+      className="relative min-h-screen flex items-center overflow-hidden bg-transparent"
     >
       {/* Ambient Orbs */}
       <div className="orb orb-cyan w-[600px] h-[600px] -top-32 -left-32" />
@@ -49,14 +42,7 @@ export default function Hero() {
         <ParticleBackground />
       </div>
 
-      {/* Grid overlay */}
-      <div
-        className="absolute inset-0 z-0 opacity-[0.03]"
-        style={{
-          backgroundImage: `linear-gradient(rgba(0,212,255,1) 1px, transparent 1px), linear-gradient(90deg, rgba(0,212,255,1) 1px, transparent 1px)`,
-          backgroundSize: "60px 60px",
-        }}
-      />
+    
 
       <div className="max-w-7xl mx-auto px-6 w-full z-10 grid lg:grid-cols-2 gap-12 items-center py-28">
         {/* Left — Text Content */}
@@ -169,7 +155,7 @@ export default function Hero() {
         >
           {/* Glowing backdrop */}
           <div className="absolute inset-0 rounded-full bg-[radial-gradient(ellipse_at_center,rgba(0,212,255,0.08)_0%,transparent_70%)]" />
-          <Scene3D />
+          {/* <Scene3D /> */}
 
           {/* Floating labels */}
           <motion.div

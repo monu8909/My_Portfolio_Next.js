@@ -105,7 +105,7 @@ export default function Projects() {
   const { ref, inView } = useInView({ threshold: 0.1, triggerOnce: true });
 
   return (
-    <section id="projects" className="relative py-32 bg-[#161b2b]">
+    <section id="projects" className="relative py-32 bg-transparent">
       <div className="max-w-7xl mx-auto px-6">
         <motion.div
           ref={ref}
