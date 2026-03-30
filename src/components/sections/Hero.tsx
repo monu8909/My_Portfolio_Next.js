@@ -3,12 +3,72 @@
 import dynamic from "next/dynamic";
 import { motion } from "framer-motion";
 import { TypeAnimation } from "react-type-animation";
-
-
+import { skills } from "@/lib/data";
 
 const ParticleBackground = dynamic(() => import("@/components/3d/ParticleBackground"), {
   ssr: false,
 });
+
+function MiniSkillChart() {
+  return (
+    <div className="relative w-full h-full flex items-center justify-center">
+      <div className="relative w-64 h-64 md:w-80 md:h-80">
+        <div className="absolute inset-0 rounded-full border-2 border-dashed border-[#00d4ff]/20 animate-spin" style={{ animationDuration: '20s' }} />
+        <div className="absolute inset-4 rounded-full border border-[#00d4ff]/15" />
+        <div className="absolute inset-8 rounded-full border border-[#7c3aed]/10" />
+        
+        <div className="absolute inset-0 flex items-center justify-center">
+          <div className="w-20 h-20 md:w-24 md:h-24 rounded-full glass-card flex items-center justify-center">
+            <div className="text-center">
+              <p className="text-xl md:text-2xl font-bold font-display gradient-text-static">MERN</p>
+              <p className="text-[8px] md:text-[10px] text-[#bbc9cf] uppercase tracking-wider">Stack</p>
+            </div>
+          </div>
+        </div>
+
+        {skills.slice(0, 6).map((skill, i) => {
+          const angle = (i / 6) * 2 * Math.PI - Math.PI / 2;
+          const radius = 110;
+          const x = 128 + radius * Math.cos(angle);
+          const y = 128 + radius * Math.sin(angle);
+          
+          return (
+            <motion.div
+              key={skill.name}
+              initial={{ opacity: 0, scale: 0 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: 0.8 + i * 0.1, duration: 0.5 }}
+              className="absolute"
+              style={{ 
+                left: `${x}px`, 
+                top: `${y}px`,
+                transform: 'translate(-50%, -50%)'
+              }}
+            >
+              <motion.div
+                whileHover={{ scale: 1.15 }}
+                className="w-14 h-14 md:w-16 md:h-16 rounded-full flex items-center justify-center glass-card cursor-pointer transition-all duration-300 hover:border-[#00d4ff]/50"
+                style={{ 
+                  boxShadow: `0 0 15px ${skill.color}30`,
+                  borderColor: `${skill.color}50`
+                }}
+              >
+                <div className="text-center">
+                  <p className="text-[10px] md:text-xs font-bold font-display" style={{ color: skill.color }}>
+                    {skill.level}%
+                  </p>
+                  <p className="text-[6px] md:text-[8px] text-[#bbc9cf] truncate max-w-[40px]">
+                    {skill.name.split('.')[0]}
+                  </p>
+                </div>
+              </motion.div>
+            </motion.div>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -33,26 +93,20 @@ export default function Hero() {
       id="home"
       className="relative min-h-screen flex items-center overflow-hidden bg-transparent"
     >
-      {/* Ambient Orbs */}
       <div className="orb orb-cyan w-[600px] h-[600px] -top-32 -left-32" />
       <div className="orb orb-purple w-[400px] h-[400px] bottom-0 right-0" />
 
-      {/* Particle Background */}
       <div className="absolute inset-0 z-0">
         <ParticleBackground />
       </div>
 
-    
-
       <div className="max-w-7xl mx-auto px-6 w-full z-10 grid lg:grid-cols-2 gap-12 items-center py-28">
-        {/* Left — Text Content */}
         <motion.div
           variants={containerVariants}
           initial="hidden"
           animate="visible"
           className="flex flex-col gap-6"
         >
-          {/* Badge */}
           <motion.div variants={itemVariants}>
             <span className="tech-chip text-xs">
               <span className="w-2 h-2 rounded-full bg-emerald-400 inline-block animate-pulse" />
@@ -60,7 +114,6 @@ export default function Hero() {
             </span>
           </motion.div>
 
-          {/* Main Headline */}
           <motion.div variants={itemVariants} className="flex flex-col gap-2">
             <p className="text-[#bbc9cf] font-medium uppercase tracking-[0.2em] text-sm font-display">
               Hello, I&apos;m Monu Rajput
@@ -74,7 +127,6 @@ export default function Hero() {
             </h1>
           </motion.div>
 
-          {/* Typing Animation */}
           <motion.div variants={itemVariants} className="text-xl md:text-2xl text-[#bbc9cf] font-display">
             I build{" "}
             <span className="text-[#00d4ff] font-semibold">
@@ -94,13 +146,11 @@ export default function Hero() {
             </span>
           </motion.div>
 
-          {/* Bio */}
           <motion.p variants={itemVariants} className="text-[#bbc9cf] text-lg leading-relaxed max-w-lg">
             Passionate MERN stack developer with 3+ years of experience crafting high-performance,
             scalable full-stack applications. I turn complex problems into elegant digital solutions.
           </motion.p>
 
-          {/* CTA Buttons */}
           <motion.div variants={itemVariants} className="flex flex-wrap gap-4 mt-2">
             <motion.a
               href="#projects"
@@ -131,7 +181,6 @@ export default function Hero() {
             </motion.a>
           </motion.div>
 
-          {/* Stats */}
           <motion.div variants={itemVariants} className="flex gap-8 mt-4 pt-6 border-t border-[rgba(0,212,255,0.1)]">
             {[
               { value: "3+", label: "Years Experience" },
@@ -146,70 +195,18 @@ export default function Hero() {
           </motion.div>
         </motion.div>
 
-        {/* Right — 3D Scene */}
         <motion.div
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 1, delay: 0.4, ease: "easeOut" }}
-          className="relative h-[500px] lg:h-[600px] hidden md:block"
+          className="relative h-[400px] md:h-[500px] lg:h-[550px] hidden md:flex items-center justify-center"
         >
-          {/* Glowing backdrop */}
           <div className="absolute inset-0 rounded-full bg-[radial-gradient(ellipse_at_center,rgba(0,212,255,0.08)_0%,transparent_70%)]" />
-          {/* <Scene3D /> */}
-
-          {/* Floating labels */}
-          <motion.div
-            animate={{ y: [0, -10, 0] }}
-            transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-            className="absolute top-16 left-10 glass rounded-xl px-4 py-3"
-          >
-            <p className="text-xs text-[#bbc9cf] uppercase tracking-wider">Stack</p>
-            <p className="font-bold font-display text-[#00d4ff]">MERN</p>
-          </motion.div>
-           <motion.div
-            animate={{ y: [0, -10, 0] }}
-            transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-            className="absolute top-[200px] align-center left-0 glass rounded-xl px-4 py-3"
-          >
-            <p className="text-xs text-[#bbc9cf] uppercase tracking-wider">Frontend</p>
-            <p className="font-bold font-display text-[#00d4ff]">REACT</p>
-          </motion.div>
-           <motion.div
-            animate={{ y: [0, -10, 0] }}
-            transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-            className="absolute top-[350px] align-center left-0 glass rounded-xl px-4 py-3"
-          >
-            <p className="text-xs text-[#bbc9cf] uppercase tracking-wider">Frontend</p>
-            <p className="font-bold font-display text-[#00d4ff]"> NEXT.JS</p>
-          </motion.div>
-
-          <motion.div
-            animate={{ y: [0, 10, 0] }}
-            transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
-            className="absolute bottom-20 right-4 glass rounded-xl px-4 py-3"
-          >
-            <p className="text-xs text-[#bbc9cf] uppercase tracking-wider">Projects</p>
-            <p className="font-bold font-display text-[#7c3aed]">10+</p>
-          </motion.div>
+          <MiniSkillChart />
         </motion.div>
       </div>
 
-      {/* Scroll indicator */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 2 }}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
-      >
-        <span className="text-[#bbc9cf] text-xs uppercase tracking-widest">Scroll</span>
-        <motion.div
-          animate={{ y: [0, 8, 0] }}
-          transition={{ duration: 1.5, repeat: Infinity }}
-          className="w-5 h-8 border border-[#00d4ff] rounded-full flex justify-center pt-1.5 opacity-60"
-        >
-          <div className="w-1.5 h-1.5 bg-[#00d4ff] rounded-full" />
-        </motion.div>
-      </motion.div>
+      
     </section>
   );
 }

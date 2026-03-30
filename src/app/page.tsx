@@ -12,6 +12,8 @@ import AnimationShowcase from "@/components/sections/AnimationShowcase";
 import Experience from "@/components/sections/Experience";
 import Contact from "@/components/sections/Contact";
 import Footer from "@/components/Footer";
+import SkillsRadarChart from "@/components/sections/SkillsRadarChart";
+import CursorSmoke from "@/components/CursorSmoke";
 
 const ParallaxBackground = dynamic(
   () => import("@/components/ParallaxBackground"),
@@ -55,6 +57,7 @@ export default function Home() {
 
   return (
     <main className="bg-[#0e1322] min-h-screen text-[#dee1f7] font-sans selection:bg-[#00d4ff]/30 selection:text-[#00d4ff] relative ">
+        <CursorSmoke />
        <div
         className="absolute inset-[-10px] z-0 opacity-[0.03]"
         style={{
@@ -73,6 +76,7 @@ export default function Home() {
         <Navbar />
         <Hero />
         <About />
+        <SkillsRadarChart />
         <TechStack />
         <Projects />
         {/* <AnimationShowcase /> */}
