@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 import { TypeAnimation } from "react-type-animation";
 import { skills } from "@/lib/data";
 
-const ParticleBackground = dynamic(() => import("@/components/3d/ParticleBackground"), {
+const ForceFieldBackground = dynamic(() => import("@/components/ForceFieldBackground").then(mod => mod.ForceFieldBackground), {
   ssr: false,
 });
 
@@ -47,7 +47,7 @@ function MiniSkillChart() {
             >
               <motion.div
                 whileHover={{ scale: 1.15 }}
-                className="w-14 h-14 md:w-16 md:h-16 rounded-full flex items-center justify-center glass-card cursor-pointer transition-all duration-300 hover:border-[#00d4ff]/50"
+                className="w-14 h-14 md:w-100 md:h-100 rounded-full flex items-center justify-center glass-card cursor-pointer transition-all duration-300 hover:border-[#00d4ff]/50"
                 style={{ 
                   boxShadow: `0 0 15px ${skill.color}30`,
                   borderColor: `${skill.color}50`
@@ -91,16 +91,21 @@ export default function Hero() {
   return (
     <section
       id="home"
-      className="relative min-h-screen flex items-center overflow-hidden bg-transparent"
+      className="relative min-h-screen flex items-center overflow-hidden bg-[#050505]"
     >
-      <div className="orb orb-cyan w-[600px] h-[600px] -top-32 -left-32" />
-      <div className="orb orb-purple w-[400px] h-[400px] bottom-0 right-0" />
-
+      {/* Dynamic Background Animation */}
       <div className="absolute inset-0 z-0">
-        <ParticleBackground />
+        <ForceFieldBackground 
+          hue={210}
+          spacing={10}
+          forceStrength={2}
+          magnifierRadius={100}
+          friction={0.92}
+          restoreSpeed={0.04}
+        />
       </div>
 
-      <div className="max-w-7xl mx-auto px-6 w-full z-10 grid lg:grid-cols-2 gap-12 items-center py-28">
+      <div className="max-w-7xl mx-auto px-6 w-full z-10 grid lg:grid-cols-2 gap-12 items-center py-28 relative">
         <motion.div
           variants={containerVariants}
           initial="hidden"
@@ -142,6 +147,7 @@ export default function Hero() {
                 speed={50}
                 repeat={Infinity}
                 cursor
+                style={{ display: 'inline-block' }}
               />
             </span>
           </motion.div>
@@ -156,7 +162,7 @@ export default function Hero() {
               href="#projects"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className="btn-primary"
+              className="px-8 py-3 bg-cyan-500 text-black font-bold rounded-lg flex items-center gap-2 hover:shadow-[0_0_20px_rgba(6,182,212,0.4)] transition-all"
             >
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                 <rect x="2" y="3" width="20" height="14" rx="2" />
@@ -170,7 +176,7 @@ export default function Hero() {
               download
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className="btn-secondary"
+              className="px-8 py-3 border border-white/10 text-white font-bold rounded-lg flex items-center gap-2 hover:bg-white/5 transition-all"
             >
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                 <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
@@ -205,8 +211,6 @@ export default function Hero() {
           <MiniSkillChart />
         </motion.div>
       </div>
-
-      
     </section>
   );
 }

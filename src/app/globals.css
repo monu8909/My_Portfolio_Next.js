@@ -3,6 +3,7 @@
 @tailwind utilities;
 
 @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap');
+@import url('https://api.fontshare.com/v2/css?f[]=clash-grotesk@700&f[]=satoshi@300,400&display=swap');
 
 :root {
   --bg: #0e1322;
@@ -34,8 +35,16 @@ html {
 body {
   background-color: var(--bg);
   color: var(--on-surface);
-  font-family: 'Inter', sans-serif;
+  font-family: 'Satoshi', 'Inter', sans-serif;
   overflow-x: hidden;
+}
+
+.font-clash {
+  font-family: 'Clash Grotesk', 'Space Grotesk', sans-serif;
+}
+
+.font-satoshi {
+  font-family: 'Satoshi', 'Inter', sans-serif;
 }
 
 /* Custom Scrollbar */
@@ -77,10 +86,10 @@ body {
 
 /* Glassmorphism */
 .glass {
-  background: rgba(47, 52, 69, 0.4);
+  background: rgba(255, 255, 255, 0.03);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(0, 212, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 .glass-card {
